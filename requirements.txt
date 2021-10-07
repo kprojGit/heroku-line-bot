@@ -1,1 +1,2 @@
-Flask==2.0.1 line-bot-sdk==1.18.0
+$ pip flask > requirements.txt
+$ pip line-bot-sdk > requirements.txt
