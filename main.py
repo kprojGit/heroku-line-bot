@@ -27,7 +27,7 @@ handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 @app.route("/callback", methods=['POST'])
 def callback():
     # リクエストヘッダーから署名検証のための値を取得します。
-    signature = request.headers['X-Line-Signature']
+    signature = request.headers['x-line-signature']
  
     # リクエストボディを取得します。
     body = request.get_data(as_text=True)
