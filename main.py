@@ -66,7 +66,7 @@ def callback():
     except InvalidSignatureError:
         app.logger.warn("Invalid Signature.署名検証で失敗してます")
         #abort(400)
-        print("署名検証で失敗してます")
+        print("署名検証で失敗してます" , YOUR_CHANNEL_ACCESS_TOKEN)
     # handleの処理を終えればOK
     return 'OK'
 
