@@ -87,7 +87,7 @@ def handle_message(event):
     
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text="応答です。 " + event.message.text))
+        TextSendMessage(text="青木さんありがとう！。 " + event.message.text))
 
 
 if __name__ == "__main__":
