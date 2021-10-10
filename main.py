@@ -52,7 +52,7 @@ def callback():
     """ Webhookからのリクエストの正当性をチェックし、ハンドラに応答処理を移譲する """
 
     # リクエストヘッダーから署名検証のための値を取得します。
-    signature = request.headers['X-Line-Signature']
+    signature = request.headers['x-line-signature']
 
     # リクエストボディを取得します。
     body = request.get_data(as_text=True)
