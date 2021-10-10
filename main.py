@@ -1,5 +1,12 @@
+import os
+
+from argparse import ArgumentParser
+from logging.config import dictConfig
+
 from flask import Flask, request, abort
- 
+
+from flask.logging import default_handler
+
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -8,59 +15,86 @@ from linebot.exceptions import (
 )
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
+    UnfollowEvent, FollowEvent, JoinEvent, LeaveEvent,
 )
-import os
- 
+
+# 標準出力にログ出力することで、Herokuのログに出力する
+dictConfig({
+    'version': 1,
+    'formatters': {'default': {
+        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
+    }},
+    'handlers': {'consoleHandler': {
+        'class': 'logging.StreamHandler',
+        'level': 'INFO',
+        'formatter': 'default',
+        'stream': 'ext://sys.stdout'
+    }},
+    'root': {
+        'level': 'INFO',
+        'handlers': ['consoleHandler']
+    }
+})
+
 app = Flask(__name__)
- 
-#環境変数取得
-# LINE Developersで設定されているアクセストークンとChannel Secretをを取得し、設定します。
+
+# 環境変数取得
+# LINE Developersで設定されているチャネルアクセストークンとチャネルシークレットを設定
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["LINE_BOT_CHANNEL_SECRET"]
 YOUR_CHANNEL_SECRET = os.environ["LINE_BOT_CHANNEL_TOKEN"]
- 
+
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
- 
- 
-## 1 ##
-#Webhookからのリクエストをチェックします。
+
+
 @app.route("/callback", methods=['POST'])
 def callback():
+    """ Webhookからのリクエストの正当性をチェックし、ハンドラに応答処理を移譲する """
+
     # リクエストヘッダーから署名検証のための値を取得します。
-    signature = request.headers['x-line-signature']
- 
+    signature = request.headers['X-Line-Signature']
+
     # リクエストボディを取得します。
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
- 
+
     # handle webhook body
-    #署名を検証し、問題なければhandleに定義されている関数を呼び出す。
     try:
         handler.handle(body, signature)
-    #署名検証で失敗した場合、例外を出す。
+    # 署名検証で失敗した場合、例外を出す。
     except InvalidSignatureError:
-        abort(200)
+        app.logger.warn("Invalid Signature.")
+        abort(400)
     # handleの処理を終えればOK
     return 'OK'
- 
-## 2 ##
-###############################################
-#LINEのメッセージの取得と返信内容の設定(オウム返し)
-###############################################
- 
-#LINEでMessageEvent（普通のメッセージを送信された場合）が起こった場合に、
-#def以下の関数を実行します。
-#reply_messageの第一引数のevent.reply_tokenは、イベントの応答に用いるトークンです。 
-#第二引数には、linebot.modelsに定義されている返信用のTextSendMessageオブジェクトを渡しています。
- 
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    """
+    LINEへのテキストメッセージに対して応答を返す
+
+    Parameters
+    ----------
+    event: MessageEvent
+      LINEに送信されたメッセージイベント
+    """
+
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text)) #ここでオウム返しのメッセージを返します。
- 
-# ポート番号の設定
+        TextSendMessage(text="応答です。 " + event.message.text))
+
+
 if __name__ == "__main__":
     # app.run()
-    port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    arg_parser = ArgumentParser(
+        usage='Usage: python ' + __file__ + ' [--port <port>] [--help]'
+    )
+    # Herokuは環境変数PORTのポートで起動したWeb Appの起動を待ち受けるため、そのポート番号でApp起動する
+    arg_parser.add_argument('-p', '--port', type=int,
+                            default=int(os.environ.get('PORT', 8000)), help='port')
+    arg_parser.add_argument('-d', '--debug', default=False, help='debug')
+    arg_parser.add_argument('--host', default='0.0.0.0', help='host')
+    options = arg_parser.parse_args()
+
+    app.run(debug=options.debug, host=options.host, port=options.port)
