@@ -65,7 +65,7 @@ def callback():
     # 署名検証で失敗した場合、例外を出す。
     except InvalidSignatureError:
         app.logger.warn("Invalid Signature.")
-        abort(400)
+        abort(200)
     # handleの処理を終えればOK
     return 'OK'
 
