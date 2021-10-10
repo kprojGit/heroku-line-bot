@@ -52,7 +52,7 @@ def callback():
     """ Webhookからのリクエストの正当性をチェックし、ハンドラに応答処理を移譲する """
 
     # リクエストヘッダーから署名検証のための値を取得します。
-    signature = request.headers['x-line-signature']
+    signature = request.headers['X-Line-Signature']
 
     # リクエストボディを取得します。
     body = request.get_data(as_text=True)
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     )
     # Herokuは環境変数PORTのポートで起動したWeb Appの起動を待ち受けるため、そのポート番号でApp起動する
     arg_parser.add_argument('-p', '--port', type=int,
-                            default=int(os.environ.get('PORT', 8000)), help='port')
+                            default=int(os.getenv('PORT', 8000)), help='port')
     arg_parser.add_argument('-d', '--debug', default=False, help='debug')
     arg_parser.add_argument('--host', default='0.0.0.0', help='host')
     options = arg_parser.parse_args()
