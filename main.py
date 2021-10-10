@@ -59,9 +59,7 @@ def callback():
     app.logger.info("Request body: " + body)
 
     # handle webhook body
-    if (event.reply_token == '00000000000000000000000000000000' or
-            event.reply_token == 'ffffffffffffffffffffffffffffffff'):
-        return
+    
     try:
         handler.handle(body, signature)
     # 署名検証で失敗した場合、例外を出す。
@@ -82,7 +80,9 @@ def handle_message(event):
     event: MessageEvent
       LINEに送信されたメッセージイベント
     """
-
+    if (event.reply_token == '00000000000000000000000000000000' or event.reply_token == 'ffffffffffffffffffffffffffffffff'):
+        return
+    
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="応答です。 " + event.message.text))
