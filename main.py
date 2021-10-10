@@ -65,7 +65,7 @@ def callback():
     # 署名検証で失敗した場合、例外を出す。
     except InvalidSignatureError:
         app.logger.warn("Invalid Signature.")
-        abort(200)
+        abort(400)
     # handleの処理を終えればOK
     return 'OK'
 
@@ -80,6 +80,7 @@ def handle_message(event):
     event: MessageEvent
       LINEに送信されたメッセージイベント
     """
+
     if (event.reply_token == '00000000000000000000000000000000' or event.reply_token == 'ffffffffffffffffffffffffffffffff'):
         return
     
@@ -95,7 +96,7 @@ if __name__ == "__main__":
     )
     # Herokuは環境変数PORTのポートで起動したWeb Appの起動を待ち受けるため、そのポート番号でApp起動する
     arg_parser.add_argument('-p', '--port', type=int,
-                            default=int(os.getenv('PORT', 8000)), help='port')
+                            default=int(os.getenv('PORT', 5000)), help='port')
     arg_parser.add_argument('-d', '--debug', default=False, help='debug')
     arg_parser.add_argument('--host', default='0.0.0.0', help='host')
     options = arg_parser.parse_args()
