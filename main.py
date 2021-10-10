@@ -40,8 +40,8 @@ app = Flask(__name__)
 
 # 環境変数取得
 # LINE Developersで設定されているチャネルアクセストークンとチャネルシークレットを設定
-YOUR_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_BOT_CHANNEL_SECRET")
-YOUR_CHANNEL_SECRET = os.getenv("LINE_BOT_CHANNEL_TOKEN")
+YOUR_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_BOT_CHANNEL_TOKEN")
+YOUR_CHANNEL_SECRET = os.getenv("LINE_BOT_CHANNEL_SECRET")
 
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
