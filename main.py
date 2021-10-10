@@ -59,6 +59,9 @@ def callback():
     app.logger.info("Request body: " + body)
 
     # handle webhook body
+    if (event.reply_token == '00000000000000000000000000000000' or
+            event.reply_token == 'ffffffffffffffffffffffffffffffff'):
+        return
     try:
         handler.handle(body, signature)
     # 署名検証で失敗した場合、例外を出す。
