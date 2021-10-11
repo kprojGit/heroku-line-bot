@@ -90,7 +90,10 @@ def handle_message(event):
     if (event.reply_token == '00000000000000000000000000000000' or event.reply_token == 'ffffffffffffffffffffffffffffffff'):
         return
 
-
+    elif messe == "test" or messe == "テスト":
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="バッチリだよ！！"))
    
     else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
         line_bot_api.reply_message(
