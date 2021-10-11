@@ -20,7 +20,7 @@ import wikipedia
 
 
 from bs4 import BeautifulSoup #BeautifulSoupクラスをインポート
-from urllib import request #urllib.requestモジュールをインポート
+import urllib.request #urllib.requestモジュールをインポート
 import time
 import requests
 
