@@ -19,11 +19,6 @@ from linebot.models import (
 import wikipedia
 
 
-# スクレイピング用
-from bs4 import BeautifulSoup #BeautifulSoupクラスをインポート
-from urllib import request #urllib.requestモジュールをインポート
-import time
-import requests
 
 
 # 標準出力にログ出力することで、Herokuのログに出力する
