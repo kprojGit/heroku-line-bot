@@ -69,6 +69,11 @@ def callback():
         print("署名検証で失敗してます" , YOUR_CHANNEL_ACCESS_TOKEN)
     # handleの処理を終えればOK
     return 'OK'
+
+
+
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     """
@@ -81,9 +86,21 @@ def handle_message(event):
     if (event.reply_token == '00000000000000000000000000000000' or event.reply_token == 'ffffffffffffffffffffffffffffffff'):
         return
 
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text="応答です。 " + event.message.text))
+   
+
+    else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
+        line_bot_api.reply_message(
+            event.reply_token,
+            # TextSendMessage(event.message.text + text='はわかりません！'))
+            TextSendMessage(text='"確認","test","写真"を入力してください'))
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     # app.run()
