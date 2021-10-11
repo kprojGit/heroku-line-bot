@@ -102,48 +102,30 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text="バッチリだよ！！"))
 
-    elif messe == "番組表":
-        url = 'https://movie.jorudan.co.jp/cinema/broadcast/'
-        response = request.urlopen(url)
-        soup = BeautifulSoup(response,'html.parser')
-        response.close()
-
-        # 得られたsoupオブジェクトを操作していく
-        list_movie = list()
-        for tag in soup.find_all('div', class_='title'):
-            tag = str(tag) #引数に指定したオブジェクトを文字列にして取得
-            if "/cinema/" in tag:
-                movie_name = tag.split('"')
-                #print(movie_name[5])
-                list_movie.append(movie_name[5])
-
-        list_day = list()
-        for tag in soup.find_all('th'):
-            tag = str(tag)
-            day = tag.split('>')
-            day = day[1].split('<')
-            #print(day[0])
-            list_day.append(day[0])
-
-        list_time = list()
-        for tag in soup.find_all('td', class_='tvdate'):
-            tag = str(tag)
-            time = tag.split()
-            #print(time[2]+" "+time[3])
-            list_time.append(time[2]+" "+time[3])
-
-        i=0
-        movieLIST = ""
-        for tag in list_day:
-            #print(tag+" "+list_movie[i]+"\n("+list_time[i]+")\n\n")
-            movieLIST = movieLIST + tag+" "+list_movie[i]+"\n("+list_time[i]+")\n\n"
-            i+=1
-
-        #print(movieLIST)
-
+    elif messe == "検索":
+        try:
+                wikipedia_page = wikipedia.page(messe)
+                # wikipedia.page()の処理で、ページ情報が取得できれば、以下のようにタイトル、リンク、サマリーが取得できる。
+                wikipedia_title = wikipedia_page.title
+                wikipedia_url = wikipedia_page.url
+                wikipedia_summary = wikipedia.summary(messe)
+                reply_message = '【' + wikipedia_title + '】\n' + wikipedia_summary + '\n\n' + '【詳しくはこちら】\n' + wikipedia_url
+        # ページが見つからなかった場合
+        except wikipedia.exceptions.PageError:
+            reply_message = '【' + messe + '】\nについての情報は見つかりませんでした。'
+        # 曖昧さ回避にひっかかった場合
+        except wikipedia.exceptions.DisambiguationError as e:
+            disambiguation_list = e.options
+            reply_message = '複数の候補が返ってきました。以下の候補から、お探しの用語に近いものを再入力してください。\n\n'
+            for word in disambiguation_list:
+                reply_message += '・' + word + '\n'
+        #print(reply_message)
+            
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(movieLIST))
+            TextSendMessage(reply_message)
+        )
+
 
    
     else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
