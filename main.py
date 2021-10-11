@@ -120,14 +120,7 @@ def handle_message(event):
         res = requests.post(url, headers=headers, params=payload, files=files)
         
         print(res)#メッセージがが送れたかどうかの結果を表示
-
-
-    else:#"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(event.message.text + text="?? ",'"確認","test","写真"を入力してください'))
-            messe = event.message.text
-
+    
 
 
     elif messe == "検索":
@@ -148,7 +141,17 @@ def handle_message(event):
             for word in disambiguation_list:
                 reply_message += '・' + word + '\n'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reply_message))
-        
+
+
+
+
+    else:#"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(event.message.text + text="?? ",'"確認","test","写真"を入力してください'))
+            messe = event.message.text
+
+
 
 if __name__ == "__main__":
     # app.run()
