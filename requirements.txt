@@ -1,5 +1,6 @@
 backcall==0.2.0
 beautifulsoup4==4.10.0
+bs4==0.0.1
 cycler==0.10.0
 debugpy==1.4.3
 decorator==5.1.0

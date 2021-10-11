@@ -133,15 +133,17 @@ def handle_message(event):
             list_time.append(time[2]+" "+time[3])
 
         i=0
-        message = ""
+        movieLIST = ""
         for tag in list_day:
-            print(tag+" "+list_movie[i]+"\n("+list_time[i]+")\n\n")
-            message = message + tag+" "+list_movie[i]+"\n("+list_time[i]+")\n\n"
+            #print(tag+" "+list_movie[i]+"\n("+list_time[i]+")\n\n")
+            movieLIST = movieLIST + tag+" "+list_movie[i]+"\n("+list_time[i]+")\n\n"
             i+=1
+
+        #print(movieLIST)
 
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(movie))
+            TextSendMessage(movieLIST))
 
    
     else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
