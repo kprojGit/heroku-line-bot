@@ -93,13 +93,11 @@ messe = event.message.text
     #"確認" または "チェック"のメッセージを入力した場合"OK"のメッセージを送信して、
     #撮影してからLINE Notifyで画像を送信
     if messe == "確認" or messe == "チェック":
-
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage("OK"))
    
     elif messe == "test" or messe == "テスト":
-
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage("バッチリだよ！！"))
