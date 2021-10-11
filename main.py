@@ -97,9 +97,9 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text="バッチリだよ！！"))
 
-
     elif " 検索" in  messe:
-        return_message = event.message.text
+        return_message = messe[:messe.find(' 検索')]
+        
         try:
                 wikipedia_page = wikipedia.page(return_message)
                 # wikipedia.page()の処理で、ページ情報が取得できれば、以下のようにタイトル、リンク、サマリーが取得できる。
