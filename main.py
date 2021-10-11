@@ -17,6 +17,9 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
     UnfollowEvent, FollowEvent, JoinEvent, LeaveEvent,
 )
+import wikipedia
+
+
 
 # 標準出力にログ出力することで、Herokuのログに出力する
 dictConfig({
@@ -85,10 +88,67 @@ def handle_message(event):
     if (event.reply_token == '00000000000000000000000000000000' or event.reply_token == 'ffffffffffffffffffffffffffffffff'):
         return
     
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text="青木さんありがとう！。 " + event.message.text))
 
+
+    #"確認" または "チェック"のメッセージを入力した場合"OK"のメッセージを送信して、
+    #撮影してからLINE Notifyで画像を送信
+    if messe == "確認" or messe == "チェック":
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage("OK"))
+   
+    elif messe == "test" or messe == "テスト":
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage("バッチリだよ！！"))
+    
+    elif messe == "写真" or messe == "photo":
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage("notifyの方に画像を送ったよ！！"))
+        
+        url = "https://notify-api.line.me/api/notify"
+        access_token = 'rdzeR6Lp7pHO585Qfid'
+        headers = {'Authorization': 'Bearer ' + access_token}
+
+        message = 'image test'
+        image = 'C:/Usersest.jpg'  # jpgもしくはpng
+        payload = {'message': message}
+        files = {'imageFile': open(image, 'rb')}
+        res = requests.post(url, headers=headers, params=payload, files=files)
+        
+        print(res)#メッセージがが送れたかどうかの結果を表示
+
+
+    else:#"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(event.message.text + text="?? ",'"確認","test","写真"を入力してください'))
+            messe = event.message.text
+
+
+
+    elif messe == "検索":
+        try:
+            wikipedia_page = wikipedia.page(send_message)
+            # wikipedia.page()の処理で、ページ情報が取得できれば、以下のようにタイトル、リンク、サマリーが取得できる。
+            wikipedia_title = wikipedia_page.title
+            wikipedia_url = wikipedia_page.url
+            wikipedia_summary = wikipedia.summary(send_message)
+            reply_message = '【' + wikipedia_title + '】\n' + wikipedia_summary + '\n\n' + '【詳しくはこちら】\n' + wikipedia_url
+        # ページが見つからなかった場合
+        except wikipedia.exceptions.PageError:
+            reply_message = '【' + send_message + '】\nについての情報は見つかりませんでした。'
+        # 曖昧さ回避にひっかかった場合
+        except wikipedia.exceptions.DisambiguationError as e:
+            disambiguation_list = e.options
+            reply_message = '複数の候補が返ってきました。以下の候補から、お探しの用語に近いものを再入力してください。\n\n'
+            for word in disambiguation_list:
+                reply_message += '・' + word + '\n'
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(reply_message))
+        
 
 if __name__ == "__main__":
     # app.run()
