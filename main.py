@@ -98,7 +98,7 @@ def handle_message(event):
             TextSendMessage(text="バッチリだよ！！"))
 
 
-    elif " 検索" in  messe == True:
+    elif " 検索" in  messe:
         return_message = event.message.text
         try:
                 wikipedia_page = wikipedia.page(return_message)
