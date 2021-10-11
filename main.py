@@ -91,10 +91,7 @@ def handle_message(event):
     else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
         line_bot_api.reply_message(
             event.reply_token,
-            # TextSendMessage(event.message.text + text='はわかりません！'))
-            TextSendMessage(text='"確認","test","写真"を入力してください'))
-
-
+            TextSendMessage(text="不明な言葉です→ " + event.message.text))
 
 
 
