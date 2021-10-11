@@ -92,32 +92,12 @@ messe = event.message.text
 
     #"確認" または "チェック"のメッセージを入力した場合"OK"のメッセージを送信して、
     #撮影してからLINE Notifyで画像を送信
-    if messe == "確認" or messe == "チェック":
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage("OK"))
-   
-    elif messe == "test" or messe == "テスト":
+    
+    if messe == "test" or messe == "テスト":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage("バッチリだよ！！"))
     
-    elif messe == "写真" or messe == "photo":
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage("notifyの方に画像を送ったよ！！"))
-        
-        url = "https://notify-api.line.me/api/notify"
-        access_token = 'rdzxPAkZ47pHO585Qfid'
-        headers = {'Authorization': 'Bearer ' + access_token}
-
-        message = 'image test'
-        image = 'C:/Usersest.jpg'  # jpgもしくはpng
-        payload = {'message': message}
-        files = {'imageFile': open(image, 'rb')}
-        res = requests.post(url, headers=headers, params=payload, files=files)
-        
-        print(res)#メッセージがが送れたかどうかの結果を表示
 
     else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
         line_bot_api.reply_message(
