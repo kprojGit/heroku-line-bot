@@ -99,10 +99,10 @@ def handle_message(event):
 
     elif messe == "画像" or messe == "写真":
         line_bot_api.reply_message(
-　　        event.reply_token,
+            event.reply_token,
 　　        ImageSendMessage(
-　　        original_content_url=’https://1.bp.blogspot.com/-eaDZ7sDP9uY/Xhwqlve5SUI/AAAAAAABXBo/EcI2C2vim7w2WV6EYy3ap0QLirX7RPohgCNcBGAsYHQ/s400/pose_syanikamaeru_man.png’,
-　　        preview_image_url=’https://1.bp.blogspot.com/-eaDZ7sDP9uY/Xhwqlve5SUI/AAAAAAABXBo/EcI2C2vim7w2WV6EYy3ap0QLirX7RPohgCNcBGAsYHQ/s400/pose_syanikamaeru_man.png’))
+　　            original_content_url=’https://1.bp.blogspot.com/-eaDZ7sDP9uY/Xhwqlve5SUI/AAAAAAABXBo/EcI2C2vim7w2WV6EYy3ap0QLirX7RPohgCNcBGAsYHQ/s400/pose_syanikamaeru_man.png’,
+　　            preview_image_url=’https://1.bp.blogspot.com/-eaDZ7sDP9uY/Xhwqlve5SUI/AAAAAAABXBo/EcI2C2vim7w2WV6EYy3ap0QLirX7RPohgCNcBGAsYHQ/s400/pose_syanikamaeru_man.png’))
 
    
     else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
