@@ -97,12 +97,9 @@ def handle_message(event):
             event.reply_token,
             TextSendMessage(text="バッチリだよ！！"))
 
-    elif messe == "検索":
-        line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text="検索したい語句を入力してください！"))
-        return_message = event.message.text
 
+    elif " 検索" in  messe == True:
+        return_message = event.message.text
         try:
                 wikipedia_page = wikipedia.page(return_message)
                 # wikipedia.page()の処理で、ページ情報が取得できれば、以下のようにタイトル、リンク、サマリーが取得できる。
@@ -131,7 +128,7 @@ def handle_message(event):
     else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="不明な言葉です→" + event.message.text))
+            TextSendMessage(text="検索したい場合は「検索したい語句 検索」" ))
 
 
 
