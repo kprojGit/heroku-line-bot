@@ -83,26 +83,21 @@ def handle_message(event):
     event: MessageEvent
       LINEに送信されたメッセージイベント
     """
+
+
+    messe = event.message.text
+
     if (event.reply_token == '00000000000000000000000000000000' or event.reply_token == 'ffffffffffffffffffffffffffffffff'):
         return
-    
 
 
-messe = event.message.text
-
-    #"確認" または "チェック"のメッセージを入力した場合"OK"のメッセージを送信して、
-    #撮影してからLINE Notifyで画像を送信
-    
-    if messe == "test" or messe == "テスト":
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage("バッチリだよ！！"))
-    
-
+   
     else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(event.message.text + text="は不明な言葉です"))
+
+
 
 
 
