@@ -105,7 +105,7 @@ def handle_message(event):
 
     elif messe == "映画" or messe == "番組表":
         url = 'https://movie.jorudan.co.jp/cinema/broadcast/'
-        response = request.urlopen(url) #flaskのrequestとは違うので注意
+        response = urllib.request.urlopen(url) #flaskのrequestとは違うので注意
         soup = BeautifulSoup(response,'html.parser')
         response.close()
         #print(soup)
