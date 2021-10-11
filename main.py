@@ -114,7 +114,6 @@ def handle_message(event):
             event.reply_token,
             # TextSendMessage(event.message.text + text='はわかりません！'))
             TextSendMessage(text='"確認","test","写真"を入力してください'))
-            messe = event.message.text
 
 
 
