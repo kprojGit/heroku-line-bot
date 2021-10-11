@@ -98,16 +98,21 @@ def handle_message(event):
             TextSendMessage(text="バッチリだよ！！"))
 
     elif messe == "検索":
+        line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text="検索したい語句を入力してください！"))
+        return_message = event.message.text
+
         try:
-                wikipedia_page = wikipedia.page(messe)
+                wikipedia_page = wikipedia.page(return_message)
                 # wikipedia.page()の処理で、ページ情報が取得できれば、以下のようにタイトル、リンク、サマリーが取得できる。
                 wikipedia_title = wikipedia_page.title
                 wikipedia_url = wikipedia_page.url
-                wikipedia_summary = wikipedia.summary(messe)
+                wikipedia_summary = wikipedia.summary(return_message)
                 reply_message = '【' + wikipedia_title + '】\n' + wikipedia_summary + '\n\n' + '【詳しくはこちら】\n' + wikipedia_url
         # ページが見つからなかった場合
         except wikipedia.exceptions.PageError:
-            reply_message = '【' + messe + '】\nについての情報は見つかりませんでした。'
+            reply_message = '【' + return_message + '】\nについての情報は見つかりませんでした。'
         # 曖昧さ回避にひっかかった場合
         except wikipedia.exceptions.DisambiguationError as e:
             disambiguation_list = e.options
