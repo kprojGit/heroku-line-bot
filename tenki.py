@@ -2,8 +2,8 @@ import urllib.request
 from bs4 import BeautifulSoup
 
 def getw():    #今日の天気スクレイピング
-    #対象のサイトURL
-    url = "https://tenki.jp/forecast/6/30/6200/27100/"
+    #対象のサイトURL　※東京の台東区で固定
+    url = "https://tenki.jp/forecast/3/16/4410/13106/"
     #インスタンス作成
     res = urllib.request.urlopen(url)
     soup = BeautifulSoup(res, 'html.parser')
@@ -40,6 +40,7 @@ def tom_getw():    #明日の天気スクレイピング
     tds = soup.select("tr.rain-probability td")
     hini = soup.find_all("h3", class_="left-style")
 
+    place = "東京都　台東区の天気\n"
     tenki = hini[1].getText() + "\n\n" + weather[1].getText()
     kion = "\n最高 " + temp[1].getText()
     low_kion = "  最低 " + low_temp[1].getText()
@@ -48,5 +49,5 @@ def tom_getw():    #明日の天気スクレイピング
     rain3 = "\n12-18時  " + tds[6].getText()
     rain4 = "\n18-24時  " + tds[7].getText()
 
-    b = tenki+kion+low_kion+rain1+rain2+rain3+rain4
+    b = place+tenki+kion+low_kion+rain1+rain2+rain3+rain4
     return b
