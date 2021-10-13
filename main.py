@@ -27,6 +27,7 @@ import requests
 
 
 import tenki   #同階層の天気スクレイピング用のファイルをインポート
+import corona
 
 
 # 標準出力にログ出力することで、Herokuのログに出力する
@@ -111,6 +112,12 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=tenki.getw()))
     elif "明日" in messe and "天気" in messe:   #tenki.pyのtom_getw関数を呼び出す
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=tenki.tom_getw()))
+
+
+
+    # コロナ用のスクリプト
+    elif "コロナ" in messe:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=corona.get_num_infect()))
 
 
 

@@ -15,6 +15,7 @@ def getw():    #今日の天気スクレイピング
     hini = soup.find_all("h3", class_="left-style")
 
 
+    place = "東京都　台東区の天気\n"
     tenki = hini[0].getText() + "\n\n" + weather[0].getText()
     kion = "\n最高 " + temp[0].getText()
     low_kion = "  最低 " + low_temp[0].getText()
@@ -24,7 +25,7 @@ def getw():    #今日の天気スクレイピング
     rain4 = "\n18-24時  " + tds[3].getText()
 
 
-    a = tenki+kion+low_kion+rain1+rain2+rain3+rain4
+    a = place+tenki+kion+low_kion+rain1+rain2+rain3+rain4
     return a
 
 def tom_getw():    #明日の天気スクレイピング
