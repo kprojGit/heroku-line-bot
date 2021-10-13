@@ -85,13 +85,18 @@ def callback():
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location(event):
-    text = event.message.address
-
+    text = event.message.address[:event.message.address.find('市' or '区')]
     result = tenki.get_weather_from_location(text)
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=result)
     )
+
+
+
+
+
+
 
 
 
@@ -145,7 +150,7 @@ def handle_message(event):
 
 
     # 番組表の映画を抽出
-    elif "映画" in messe and "番組表" in messe: 
+    elif "映画" in messe or "番組表" in messe: 
         url = 'https://movie.jorudan.co.jp/cinema/broadcast/'
         response = urllib.request.urlopen(url) #flaskのrequestとは違うので注意
         soup = BeautifulSoup(response,'html.parser')
