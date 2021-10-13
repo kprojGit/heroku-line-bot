@@ -85,7 +85,8 @@ def callback():
 
 @handler.add(MessageEvent, message=LocationMessage)
 def handle_location(event):
-    text = event.message.address[:event.message.address.find('市' or '区')]
+    # text = event.message.address[:event.message.address.find('市' or '区')]
+    text = event.message.address
     result = tenki.get_weather_from_location(text)
     line_bot_api.reply_message(
         event.reply_token,
