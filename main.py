@@ -13,7 +13,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
     UnfollowEvent, FollowEvent, JoinEvent, LeaveEvent,
-    ImageMessage, ImageSendMessage
+    ImageMessage, ImageSendMessage, LocationMessage
 )
 
 import wikipedia
@@ -83,6 +83,16 @@ def callback():
 
 
 
+@handler.add(MessageEvent, message=LocationMessage)
+def handle_location(event):
+    text = event.message.address
+
+    result = tenki.get_weather_from_location(text)
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=result)
+    )
+
 
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -121,8 +131,21 @@ def handle_message(event):
 
 
 
+    elif '位置情報' in messe:
+        line_bot_api.reply_message(
+        event.reply_token,
+        [
+        TextSendMessage(text='位置情報を教えてください。'),
+        TextSendMessage(text='line://nv/location')
+        ]
+        )
+
+
+
+
+
     # 番組表の映画を抽出
-    elif messe == "映画" or messe == "番組表":
+    elif "映画" in messe and "番組表" in messe: 
         url = 'https://movie.jorudan.co.jp/cinema/broadcast/'
         response = urllib.request.urlopen(url) #flaskのrequestとは違うので注意
         soup = BeautifulSoup(response,'html.parser')
@@ -200,7 +223,7 @@ def handle_message(event):
     else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="検索したい場合は「検索したい語句 検索」" ))
+            TextSendMessage(text="検索したい場合は「検索したい語句＋検索」" ))
 
 
 
