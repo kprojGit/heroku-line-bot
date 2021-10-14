@@ -30,6 +30,12 @@ import tenki   #同階層の天気スクレイピング用のファイルをイ�
 import corona
 
 
+# じゃんけん用
+import boto3
+import logging
+import random
+
+
 # 標準出力にログ出力することで、Herokuのログに出力する
 dictConfig({
     'version': 1,
@@ -80,6 +86,8 @@ def callback():
         print("署名検証で失敗してます" , YOUR_CHANNEL_ACCESS_TOKEN)
     # handleの処理を終えればOK
     return 'OK'
+
+
 
 
 
@@ -151,8 +159,17 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=corona.get_num_infect()))
 
 
+    # じゃんけん用のスクリプト
+    elif "じゃんけん" in messe:
+        with open('./janken.json') as f:
+            saisyohaguu_message = json.load(f)
+        line_bot_api.reply_message(
+            event.reply_token,
+            FlexSendMessage(alt_text='最初はぐー', contents=saisyohaguu_message)
+        )
 
-
+    elif "ぐー" in messe or "ちょき" in messe or "ぱー" in messe:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=janken.janken_battle(messe)))
 
 
     # 番組表の映画を抽出
