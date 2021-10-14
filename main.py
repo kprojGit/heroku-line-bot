@@ -34,6 +34,7 @@ import corona
 #import boto3
 import logging
 import random
+import json
 
 
 # 標準出力にログ出力することで、Herokuのログに出力する
