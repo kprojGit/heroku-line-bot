@@ -6,10 +6,7 @@ def janken_battle(messe):
 
     request_message = messe
     bot_answer = random.choice(['ぐー', 'ちょき', 'ぱー'])
-    with open('./saisyohaguu_message.json') as f:
-        saisyohaguu_message = json.load(f)
-    with open('./aikode_message.json') as f:
-        aikode_message = json.load(f)
+
     reply_messages = []
     win_reply_message = [TextSendMessage(text='私の勝ちです')]
     win_reply_message.append(StickerSendMessage(package_id='1', sticker_id=random.choice(['106', '407', '125', '100', '110'])))
