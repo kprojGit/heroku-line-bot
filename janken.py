@@ -30,7 +30,7 @@ def janken_battle(messe):
     win_reply_message.append(StickerSendMessage(package_id='1', sticker_id=random.choice(['106', '407', '125', '100', '110'])))
     lose_reply_message = [TextSendMessage(text='私の負けです…')]
     lose_reply_message.append(StickerSendMessage(package_id='2', sticker_id=random.choice(['152', '18', '25', '173', '524'])))
-    lose_reply_message = [TextSendMessage(text='あいこで…')]
+    draw_reply_message = [TextSendMessage(text='あいこで…')]
     draw_reply_message = [FlexSendMessage(alt_text='あいこで', contents=saisyohaguu_message)]
 
 
