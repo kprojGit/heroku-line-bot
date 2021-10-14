@@ -31,7 +31,7 @@ import corona
 
 
 # じゃんけん用
-import boto3
+#import boto3
 import logging
 import random
 
