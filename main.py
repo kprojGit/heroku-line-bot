@@ -36,6 +36,8 @@ import corona
 import logging
 import random
 import json
+import janken
+
 
 
 # 標準出力にログ出力することで、Herokuのログに出力する
