@@ -13,7 +13,8 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
     UnfollowEvent, FollowEvent, JoinEvent, LeaveEvent,
-    ImageMessage, ImageSendMessage, LocationMessage
+    ImageMessage, ImageSendMessage, LocationMessage,
+    FlexSendMessage, StickerSendMessage
 )
 
 import wikipedia
