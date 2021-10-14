@@ -33,6 +33,8 @@ def janken_battle(messe):
     lose_reply_message.append(StickerSendMessage(package_id='2', sticker_id=random.choice(['152', '18', '25', '173', '524'])))
     lose_reply_message.append(FlexSendMessage(alt_text='最初はぐー', contents=saisyohaguu_message))
     draw_reply_message = [FlexSendMessage(alt_text='あいこで', contents=saisyohaguu_message)]
+
+    
     if request_message == 'ぐー':
         reply_messages.append(TextSendMessage(text=bot_answer))
         if bot_answer == 'ぐー':
