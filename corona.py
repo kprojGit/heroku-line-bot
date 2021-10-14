@@ -29,6 +29,6 @@ def get_num_infect():
         if i > 5:
             break
     message= '\n'+str(day)+' 新規感染者数\n'+message
-    print(message)
+    
     return message
     

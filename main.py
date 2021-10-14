@@ -87,7 +87,7 @@ def callback():
 def handle_location(event):
     # text = event.message.address[:event.message.address.find('市' or '区')]
     text = event.message.address
-    result = tenki.get_weather_from_location(text)
+    result = tenki.get_weather_from_location(text, tenki_id)
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=result)
@@ -125,26 +125,30 @@ def handle_message(event):
 
     # 天気用のスクリプト
     elif "今日" in messe and "天気" in messe:   #tenki.pyのgetw関数を呼び出す
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=tenki.getw()))
-    elif "明日" in messe and "天気" in messe:   #tenki.pyのtom_getw関数を呼び出す
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=tenki.tom_getw()))
+        tenki_id = 'yjw_pinpoint_today'
+        line_bot_api.reply_message(
+        event.reply_token,
+        [
+        TextSendMessage(text='天気予報を知りたい場所を指定してください'),
+        TextSendMessage(text='line://nv/location')
+        ]
+        )
 
+    elif "明日" in messe and "天気" in messe:   #tenki.pyのtom_getw関数を呼び出す
+        tenki_id = 'yjw_pinpoint_tomorrow'
+        line_bot_api.reply_message(
+        event.reply_token,
+        [
+        TextSendMessage(text='天気予報を知りたい場所を指定してください'),
+        TextSendMessage(text='line://nv/location')
+        ]
+        )
 
 
     # コロナ用のスクリプト
     elif "コロナ" in messe:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=corona.get_num_infect()))
 
-
-
-    elif '位置情報' in messe:
-        line_bot_api.reply_message(
-        event.reply_token,
-        [
-        TextSendMessage(text='位置情報を教えてください。'),
-        TextSendMessage(text='line://nv/location')
-        ]
-        )
 
 
 
