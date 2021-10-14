@@ -1,9 +1,17 @@
 
 
+import os
+import json
+import random
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, FollowEvent, FlexSendMessage, StickerSendMessage
 
 def janken_battle(messe):
 
-
+    with open('./janken.json') as f:
+            saisyohaguu_message = json.load(f)
+    
     request_message = messe
     bot_answer = random.choice(['ぐー', 'ちょき', 'ぱー'])
 
@@ -14,7 +22,7 @@ def janken_battle(messe):
     lose_reply_message = [TextSendMessage(text='私の負けです')]
     lose_reply_message.append(StickerSendMessage(package_id='2', sticker_id=random.choice(['152', '18', '25', '173', '524'])))
     lose_reply_message.append(FlexSendMessage(alt_text='最初はぐー', contents=saisyohaguu_message))
-    draw_reply_message = [FlexSendMessage(alt_text='あいこで', contents=aikode_message)]
+    draw_reply_message = [FlexSendMessage(alt_text='あいこで', contents=saisyohaguu_message)]
     if request_message == 'ぐー':
         reply_messages.append(TextSendMessage(text=bot_answer))
         if bot_answer == 'ぐー':
