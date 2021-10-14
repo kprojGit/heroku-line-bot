@@ -173,7 +173,8 @@ def handle_message(event):
         )
 
     elif "ぐー" in messe or "ちょき" in messe or "ぱー" in messe:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=janken.janken_battle(messe)))
+        result = janken.janken_battle(messe)        
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=result))
 
 
     # 番組表の映画を抽出
