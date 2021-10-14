@@ -15,7 +15,7 @@ def get_weather_from_location(original_location,tenki_id):
   location_url = content.find('a').get('href')
   r = requests.get(location_url)
   soup = BeautifulSoup(r.text, 'html.parser')
-  content = soup.find(tenki_id).find_all('td')
+  content = soup.find(id = tenki_id).find_all('td')
   info = []
 
   for each in content[1:]:
