@@ -7,6 +7,16 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, FollowEvent, FlexSendMessage, StickerSendMessage
 
+
+# LINE Developersで設定されているチャネルアクセストークンとチャネルシークレットを設定
+YOUR_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_BOT_CHANNEL_TOKEN")
+YOUR_CHANNEL_SECRET = os.getenv("LINE_BOT_CHANNEL_SECRET")
+line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(YOUR_CHANNEL_SECRET)
+
+
+
+
 def janken_battle(messe):
 
     with open('./janken.json') as f:
