@@ -10,6 +10,7 @@ def get_num_infect():
     url = "https://www3.nhk.or.jp/n-data/opendata/coronavirus/nhk_news_covid19_prefectures_daily_data.csv"
     r = requests.get(url).content
     df = pd.read_csv(io.BytesIO(r),sep=",")
+
     # 今
     now = datetime.datetime.now()
     # 一日前
