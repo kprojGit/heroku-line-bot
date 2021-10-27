@@ -220,13 +220,13 @@ def handle_message(event):
 
 
     elif messe == "画像" or messe == "photo":
-        FQDN = “https://yama365.herokuapp.com/callback”
-        
+        #FQDN = 'https://yama365.herokuapp.com/callback'
+        FQDN = 'https://github.com/kprojGit/heroku-line-bot/blob/master'
         line_bot_api.reply_message(
             event.reply_token,
             ImageSendMessage(
-                original_content_url=FQDN + “/static/” + “test.jpg”,
-                preview_image_url=FQDN + “/static/” + “test.jpg”)
+                original_content_url = FQDN + “/static/” + “test.jpg”,
+                preview_image_url = FQDN + “/static/” + “test.jpg”)
                 #FQDN + “/static/” + event.message.id + “jpg”
             
 
