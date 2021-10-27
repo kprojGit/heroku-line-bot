@@ -226,13 +226,9 @@ def handle_message(event):
             event.reply_token,
             ImageSendMessage(
                 original_content_url = FQDN + '/static/' + 'test.jpg',
-                preview_image_url = FQDN + '/static/' + 'test.jpg')
+                preview_image_url = FQDN + '/static/' + 'test.jpg'))
                 #FQDN + '/static/' + event.message.id + 'jpg'
             
-
-
-
-
 
 
     elif " 検索" in  messe:
