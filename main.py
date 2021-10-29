@@ -267,6 +267,7 @@ def handle_message(event):
             TextSendMessage(text='じゃんけん→「*じゃんけん*」'),
             TextSendMessage(text='コロナ感染者数→「*コロナ*」'),
             TextSendMessage(text='映画検索→「*映画* or *番組表*」'),
+            TextSendMessage(text='監視カメラ写真→「*画像* or *photo*」'),
             TextSendMessage(text='天気予報→「今日+天気」　を入力してください！')
             ]
             )
