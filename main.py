@@ -266,9 +266,10 @@ def handle_message(event):
         text3='コロナ感染者数→「*コロナ*」\n'
         text4='映画検索→「*映画* or *番組表*」\n'
         text5='監視カメラ写真→「*画像* or *photo*」\n'
-        text6='天気予報→「今日+天気」　を入力してください！'
+        text6='天気予報→「今日+天気」\n'
+        text7='を入力してください！'
 
-        text = text1 + text2+ text3+ text4+ text5+ text6
+        text = text1 + text2+ text3+ text4+ text5+ text6 + text7
         line_bot_api.reply_message(
             event.reply_token,
             [
