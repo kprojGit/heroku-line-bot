@@ -260,15 +260,19 @@ def handle_message(event):
 
    
     else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
+        
+        text1='検索したい場合→「検索したい語句＋検索」\n'
+        text2='じゃんけん→「*じゃんけん*」\n'
+        text3='コロナ感染者数→「*コロナ*」\n'
+        text4='映画検索→「*映画* or *番組表*」\n'
+        text5='監視カメラ写真→「*画像* or *photo*」\n'
+        text6='天気予報→「今日+天気」　を入力してください！'
+
+        text = text1 + text2+ text3+ text4+ text5+ text6
         line_bot_api.reply_message(
             event.reply_token,
             [
-            TextSendMessage(text="検索したい場合→「検索したい語句＋検索」"),
-            TextSendMessage(text='じゃんけん→「*じゃんけん*」'),
-            TextSendMessage(text='コロナ感染者数→「*コロナ*」'),
-            TextSendMessage(text='映画検索→「*映画* or *番組表*」'),
-            TextSendMessage(text='監視カメラ写真→「*画像* or *photo*」'),
-            TextSendMessage(text='天気予報→「今日+天気」　を入力してください！')
+            TextSendMessage(text)
             ]
             )
 
