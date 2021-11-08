@@ -117,12 +117,6 @@ def handle_audio_message(event):
     img = message_content.content
     FQDN = 'https://yama365.herokuapp.com'
 
-    P = FQDN + '/static/'  + 'sample.m4a'
-    #指定したパスが示すファイルが存在するかどうかを分岐
-    mode = 'a' if os.path.exists(P) else 'wb'
-    with open(P,mode) as f:
-        f.write(img)
-    
     
     line_bot_api.reply_message(
         event.reply_token,
