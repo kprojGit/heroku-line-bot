@@ -13,7 +13,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
     UnfollowEvent, FollowEvent, JoinEvent, LeaveEvent,
-    ImageMessage, ImageSendMessage, LocationMessage, AudioMessage,
+    ImageMessage, ImageSendMessage, LocationMessage, AudioMessage,AudioSendMessage,
     FlexSendMessage, StickerSendMessage
 )
 
@@ -125,7 +125,7 @@ def handle_audio_message(event):
     FQDN = 'https://yama365.herokuapp.com'
     line_bot_api.reply_message(
         event.reply_token,
-        AudioSendMessage(original_content_url = FQDN + '/static/' + 'sample.m4a')
+        AudioSendMessage(original_content_url= FQDN + '/static/' +message_id+'.m4a')
         )
 
 
