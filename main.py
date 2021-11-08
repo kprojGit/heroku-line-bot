@@ -125,7 +125,7 @@ def handle_audio_message(event):
     FQDN = 'https://yama365.herokuapp.com'
     line_bot_api.reply_message(
         event.reply_token,
-        AudioSendMessage(original_content_url = FQDN + '/static/' + 'sample.m4a")
+        AudioSendMessage(original_content_url = FQDN + '/static/' + 'sample.m4a')
         )
 
 
