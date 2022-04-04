@@ -251,15 +251,13 @@ def handle_message(event):
             
     # 川根用のスクリプト
     elif "監視" in messe and "1" in messe:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='https://kproj.ddns.net:4342/'))
+        line_bot_api.reply_message(event.reply_token,[TextSendMessage(text='監視カメラ①の映像は下記URLから！'),TextSendMessage(text='https://kproj.ddns.net:4342/')])
 
     elif "監視" in messe and "2" in messe:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='https://kproj.ddns.net:4345/'))
+        line_bot_api.reply_message(event.reply_token,[TextSendMessage(text='監視カメラ②の映像は下記URLから！'),TextSendMessage(text='https://kproj.ddns.net:4345/')])
 
     elif "監視" in messe and "3" in messe:
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='https://kproj.ddns.net:4346/'))
-
-
+        line_bot_api.reply_message(event.reply_token,[TextSendMessage(text='監視カメラ③の映像は下記URLから！'),TextSendMessage(text='https://kproj.ddns.net:4346/')])
 
 
 
