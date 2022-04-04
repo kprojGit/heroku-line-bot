@@ -114,8 +114,13 @@ def handle_audio_message(event):
     #音声ファイルを保存する
     message_id = event.message.id
     message_content = line_bot_api.get_message_content(message_id)
-    img = message_content.content
+    aud = message_content.content
     FQDN = 'https://yama365.herokuapp.com'
+    P = "khproj.ddns.net:65002/home/pi/Desktop/python/LINE/"+message_id+".m4a"
+    #指定したパスが示すファイルが存在するかどうかを分岐
+    mode = 'a' if os.path.exists(P) else 'wb'
+    with open(P,mode) as f:
+        f.write(aud)
 
     
     line_bot_api.reply_message(
@@ -244,6 +249,18 @@ def handle_message(event):
             )
         )
             
+    # 川根用のスクリプト
+    elif "監視" in messe and "1" in messe:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='https://kproj.ddns.net:4342/'))
+
+    elif "監視" in messe and "2" in messe:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='https://kproj.ddns.net:4345/'))
+
+    elif "監視" in messe and "3" in messe:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text='https://kproj.ddns.net:4346/'))
+
+
+
 
 
     elif " 検索" in  messe:
@@ -280,7 +297,8 @@ def handle_message(event):
         text2='じゃんけん→「*じゃんけん*」\n'
         text3='コロナ感染者数→「*コロナ*」\n'
         text4='映画検索→「*映画* or *番組表*」\n'
-        text5='監視カメラ写真→「*画像* or *photo*」\n'
+        #text5='監視カメラ写真→「*画像* or *photo*」\n'
+        text5='監視カメラ（川根）→「監視 + 1 or 2 or 3」\n'
         text6='天気予報→「今日+天気」\n'
         text7='を入力してください！'
 
