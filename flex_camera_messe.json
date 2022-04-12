@@ -59,7 +59,7 @@
             "action": {
               "type": "uri",
               "label": "[ 視聴する ]",
-              "uri": "https://linecorp.com"
+              "uri": "https://kproj.ddns.net:4342/"
             }
           },
           {
@@ -130,7 +130,7 @@
             "action": {
               "type": "uri",
               "label": "[ 視聴する ]",
-              "uri": "https://linecorp.com"
+              "uri": "https://kproj.ddns.net:4345/"
             }
           },
           {
@@ -200,7 +200,7 @@
             "action": {
               "type": "uri",
               "label": "[ 視聴する ]",
-              "uri": "https://linecorp.com"
+              "uri": "https://kproj.ddns.net:4346/"
             }
           },
           {

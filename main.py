@@ -178,9 +178,20 @@ def handle_message(event):
         )
 
 
+
+
+
+
+
+
     # コロナ用のスクリプト
     elif "コロナ" in messe:
         line_bot_api.reply_message(event.reply_token,TextSendMessage(text=corona.get_num_infect()))
+
+
+
+
+
 
 
     # じゃんけん用のスクリプト
@@ -195,6 +206,15 @@ def handle_message(event):
     elif "ぐー" in messe or "ちょき" in messe or "ぱー" in messe:
         reply_messages = janken.janken_battle(messe)        
         line_bot_api.reply_message(event.reply_token,reply_messages)
+
+
+
+
+
+
+
+
+
 
     # 番組表の映画を抽出
     elif "映画" in messe or "番組表" in messe: 
@@ -261,8 +281,10 @@ def handle_message(event):
         with open('./flex_camera_messe.json') as f:
             camera_message = json.load(f)
         line_bot_api.reply_message(
-            event.reply_token,
-            FlexSendMessage(alt_text='視聴するカメラを選んでください', contents=camera_message)
+            event.reply_token,[
+            TextSendMessage(text='視聴するカメラを選択してください'),
+            FlexSendMessage(alt_text='視聴するカメラを表示', contents=camera_message)
+            ]
         )
 
 
@@ -319,7 +341,7 @@ def handle_message(event):
         text3='コロナ感染者数→「*コロナ*」\n'
         text4='映画検索→「*映画* or *番組表*」\n'
         #text5='監視カメラ写真→「*画像* or *photo*」\n'
-        text5='監視カメラ（川根）→「監視 + 1 or 2 or 3」\n'
+        text5='監視カメラ（川根）→「*監視* or *カメラ*」\n'
         text6='天気予報→「今日+天気」\n'
         text7='を入力してください！'
 
