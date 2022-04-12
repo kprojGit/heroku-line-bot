@@ -249,15 +249,38 @@ def handle_message(event):
             )
         )
             
+
+
+
+
+
+
+
     # 川根用のスクリプト
-    elif "監視" in messe and "1" in messe:
-        line_bot_api.reply_message(event.reply_token,[TextSendMessage(text='監視カメラ①の映像は下記URLから！'),TextSendMessage(text='https://kproj.ddns.net:4342/')])
+    elif messe == "監視" or messe == "カメラ":
+        with open('./flex camera messe.json') as f:
+            camera_message = json.load(f)
+        line_bot_api.reply_message(
+            event.reply_token,
+            FlexSendMessage(alt_text='視聴するカメラを選んでください', contents=camera_message)
+        )
 
-    elif "監視" in messe and "2" in messe:
-        line_bot_api.reply_message(event.reply_token,[TextSendMessage(text='監視カメラ②の映像は下記URLから！'),TextSendMessage(text='https://kproj.ddns.net:4345/')])
 
-    elif "監視" in messe and "3" in messe:
+
+    elif "予備" in messe and "3" in messe:
         line_bot_api.reply_message(event.reply_token,[TextSendMessage(text='監視カメラ③の映像は下記URLから！'),TextSendMessage(text='https://kproj.ddns.net:4346/')])
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
