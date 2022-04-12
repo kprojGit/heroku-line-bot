@@ -258,7 +258,7 @@ def handle_message(event):
 
     # 川根用のスクリプト
     elif messe == "監視" or messe == "カメラ":
-        with open('./flex camera messe.json') as f:
+        with open('./flex_camera_messe.json') as f:
             camera_message = json.load(f)
         line_bot_api.reply_message(
             event.reply_token,
