@@ -1,8 +1,8 @@
+from email import message
 import pandas as pd
 import requests
 import io
 import datetime
-
 
 def get_num_infect():
 
@@ -11,10 +11,15 @@ def get_num_infect():
     r = requests.get(url).content
     df = pd.read_csv(io.BytesIO(r),sep=",")
 
+    print(df)
+
     # 今
     now = datetime.datetime.now()
     # 一日前
     yesterday = now - datetime.timedelta(days=1)
+
+#strftimeで%と文字の間にハイフンを追加すると、先行ゼロを削除できるが　windowsの場合は#を使用するので気を付けないとエラーになる
+
     df_yesterday = df[df['日付'] == yesterday.strftime('%Y/%-m/%-d')]
     day = yesterday.strftime('%Y/%-m/%-d')
     df_s = df_yesterday.sort_values('各地の感染者数_1日ごとの発表数',ascending=False)
@@ -30,6 +35,10 @@ def get_num_infect():
         if i > 5:
             break
     message= '\n'+str(day)+' 新規感染者数\n'+message
-    
     return message
+
+
+
+# 結果の確認
+# get_num_infect()
     
