@@ -7,7 +7,7 @@ from flask import Flask, request, abort
 app = Flask(__name__)
 
 YOUR_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_BOT_CHANNEL_TOKEN")
-YOUR_CHANNEL_SECRET = ""os.getenv("LINE_BOT_CHANNEL_SECRET")""
+YOUR_CHANNEL_SECRET = os.getenv("LINE_BOT_CHANNEL_SECRET")
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
@@ -20,7 +20,6 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return "OK"
-
 
 
 if __name__ == "__main__":
