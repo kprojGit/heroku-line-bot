@@ -18,11 +18,12 @@ with open(ABS_PATH+'/conf.json', 'r') as f:
     CONF_DATA = json.load(f)
 
 #LINEへのアクセス情報を入力
-LINE_CHANNEL_ACCESS_TOKEN = CONF_DATA["LINE_CHANNEL_ACCESS_TOKEN"]
-LINE_CHANNEL_SECRET = CONF_DATA["LINE_CHANNEL_SECRET"]
+YOUR_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_BOT_CHANNEL_TOKEN")
+YOUR_CHANNEL_SECRET = os.getenv("LINE_BOT_CHANNEL_SECRET")
+line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
-line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(LINE_CHANNEL_SECRET)
+
 
 #ルーティングの設定、POSTリクエストが来たらcallback関数を返す
 @app.route("/callback", methods=['POST'])
