@@ -12,14 +12,6 @@ line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 
-
-@app.route('/')
-def index():
-    return "hello world"
-
-
-
-
 @app.route("/callback", methods=["POST"])
 def callback():
     signature = request.headers["X-Line-Signature"]
@@ -31,6 +23,17 @@ def callback():
     return "OK"
 
 
-if __name__ == '__main__':
-    port = int(os.getenv("PORT", 8080))
-    app.run(host="0.0.0.0", port=port, debug=True)
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    try:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=event.message.text)
+        )
+    except LineBotApiError as e:
+        print("LineBotApiError:", e.status_code, e.error.message)
+        abort(500)
+
+
+if __name__ == "__main__":
+    app.run()
