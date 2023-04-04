@@ -6,9 +6,10 @@ from flask import Flask, request, abort
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi(os.environ["LINE_BOT_ACCESS_TOKEN"])
-handler = WebhookHandler(os.environ["LINE_BOT_CHANNEL_SECRET"])
-
+YOUR_CHANNEL_ACCESS_TOKEN = "lsYbaVQ96eu3id+lBGEiByhYc9Pei8aRhflvb2sVwd6cVUAKG8OwQw8JDVm0CXF0cg9XQAT9t9gsoQuw9UTolgt6xxY6yIjrDMqELRwpwub5FUXJfxf06cFh3WGHJzCF8TCkdSO3L/FTU+6DRMv31AdB04t89/1O/w1cDnyilFU="
+YOUR_CHANNEL_SECRET = "4dd11fd4040c35df87cf1e0146f5e3e8"
+line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 @app.route("/callback", methods=["POST"])
 def callback():
