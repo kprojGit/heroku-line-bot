@@ -37,6 +37,14 @@ import logging
 import random
 import json
 import janken
+import openai
+import open_ai
+
+#openai.api_key = os.getenv("OPENAI_API_KEY")
+#openai.api_key = os.environ["OPENAI_API_KEY"]
+
+
+
 
 
 
@@ -297,10 +305,11 @@ def handle_message(event):
 
 
 
-
-
-
-
+    # ChatGPT用のスクリプト
+    #　Qの後ろを抽出
+    elif "Q" in messe:
+        return_message = messe[messe.find('Q')+len('Q'):]
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=open_ai.Ask_ChatGPT(return_message)))
 
 
 
@@ -336,16 +345,17 @@ def handle_message(event):
    
     else: #"確認" または "チェック"以外のメッセージを入力した場合はオウム返し
         
-        text1='検索したい場合→「検索したい語句＋検索」\n'
-        text2='じゃんけん→「*じゃんけん*」\n'
-        text3='コロナ感染者数→「*コロナ*」\n'
-        text4='映画検索→「*映画* or *番組表*」\n'
+        text1='wikipediaで検索したい場合→「検索したい語句＋検索」\n'
+        text2='ChatGPTでの検索→「文頭にQ＋検索したい内容」\n'
+        text3='じゃんけん→「*じゃんけん*」\n'
+        text4='コロナ感染者数→「*コロナ*」\n'
+        text5='映画検索→「*映画* or *番組表*」\n'
         #text5='監視カメラ写真→「*画像* or *photo*」\n'
-        text5='監視カメラ（川根）→「*監視* or *カメラ*」\n'
-        text6='天気予報→「今日+天気」\n'
-        text7='を入力してください！'
+        text6='監視カメラ（川根）→「*監視* or *カメラ*」\n'
+        text7='天気予報→「今日+天気」\n'
+        text8='を入力してください！'
 
-        text = text1 + text2+ text3+ text4+ text5+ text6 + text7
+        text = text1 + text2+ text3 + text4 + text5 + text6 + text7 + text8
         line_bot_api.reply_message(
             event.reply_token,
             [
